@@ -1,4 +1,6 @@
 var exec = require('child_process').exec;
+var request = require('request');
+var Twitter = require('./twitter');
 
 function start(response) {
 
@@ -12,6 +14,11 @@ function start(response) {
 
 function search(response) {
     console.log('search');
+    const twitter = Twitter(request, exec);
+    twitter.getImages('', (data)=>{
+        response.write(data);
+        response.end();
+    });
 }
 
 function responseError(response){

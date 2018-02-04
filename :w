@@ -1,0 +1,12 @@
+var SNSInterface = require('./sns_interface');
+
+var Twitter = function(request, fs) {
+    var that = SNSInterface(request, fs);
+    that.be
+    that.getImages(query) {
+        return true;
+    }
+    return that;
+}
+
+exports = module.exports = Twitter;
