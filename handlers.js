@@ -16,7 +16,7 @@ function search(response) {
     console.log('search');
     const twitter = Twitter(request, exec);
     twitter.getImages('', (data)=>{
-        response.write(data);
+        response.write(data.toString());
         response.end();
     });
 }

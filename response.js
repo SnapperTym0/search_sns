@@ -4,10 +4,14 @@
  * @param  data クライアントへ返すデータ
  * @return この関数自身
  */
-function Response(data) {
+function Response() {
     var that = {};
 
-    that.data = data;
+    that.datas = [];
+
+    that.setData = function(data) {
+        that.datas.push(data);
+    }
 
     return that;
 }

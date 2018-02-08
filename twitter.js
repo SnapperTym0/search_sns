@@ -65,10 +65,16 @@ var Twitter = function(request, exec) {
     that.extraData = function(jsons, type) {
 
         //if(type === 'image') {}
-        jsons.forEach((current)=>{
-            console.log(current.entities);
+        var response = Response();
+        jsons.forEach((currentData)=>{
+            const medias = currentData.entities.media;
+            // undifinedならcontinueする
+            if(!medias) return;
+            medias.forEach((currentMedia)=>{
+                response.setData(currentMedia.media_url);
+            });
         });
-
+        return response;
     }
 
     /*
@@ -115,8 +121,7 @@ var Twitter = function(request, exec) {
      *
      * @param  query 検索文字列
      * @param  callback コールバック関数
-     * @return callback(jsonObj)を実行する
-     *         jsonObjには{data: '画像URL'}のリストが格納される
+     * @return callback(JSON)を実行する
      */
     that.getImages = function(query, callback) {
         // トークンが取得できたら、SearchAPIへリクエストする
@@ -124,9 +129,9 @@ var Twitter = function(request, exec) {
             if(err) return console.error(err);
             const url = that.setSearchQuery(query);
             const token = body.access_token;
-            that.requestSearch(url, token, (jsons)=>{
-                const responses = that.extraData(jsons, 'image');
-                //callback(responses);
+            that.requestSearch(url, token, (json)=>{
+                const responses = that.extraData(json, 'image');
+                callback(responses);
             });
         });
     }
