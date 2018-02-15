@@ -7,17 +7,20 @@ var SNSInterface = function(request, exec){
     // 認証用ファイル
     that.credentialFileName = '$CREDENTIAL';
     // 画像URLリストを返す
-    that.getImages = function(query, callback){
+    that.getImages = function(query, callback) {
         throw 'This function is no implementarion';
     };
     // 動画URLリストを返す
-    that.getVideos = function(query, callback){
+    that.getVideos = function(query, callback) {
         throw 'This function is no implementarion';
     };
     // テキストURLリストを返す
-    that.getTexts =function(query, callback){
+    that.getTexts = function(query, callback) {
         throw 'This function is no implementarion';
     };
+    that.getToken = function(callback) {
+        throw 'This function is no implementarion';
+    }
 
     return that;
 }

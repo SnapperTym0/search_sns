@@ -121,19 +121,30 @@ var Twitter = function(request, exec) {
      *
      * @param  query 検索文字列
      * @param  callback コールバック関数
+     * @param  access_token アクセストークン @nullable
      * @return callback(JSON)を実行する
      */
-    that.getImages = function(query, callback) {
-        // トークンが取得できたら、SearchAPIへリクエストする
-        that.getToken((err, res, body)=>{
-            if(err) return console.error(err);
-            const url = that.setSearchQuery(query);
-            const token = body.access_token;
+    that.getImages = function(query, callback, access_token) {
+        const url = that.setSearchQuery(query);
+        const token = access_token;
+
+        if (token) {
+            // access_tokenがある場合
             that.requestSearch(url, token, (json)=>{
                 const responses = that.extraData(json, 'image');
                 callback(responses);
             });
-        });
+        } else {
+            // access_tokenがない場合
+            that.getToken((err, res, body)=>{
+                if(err) return console.error(err);
+                token = body.access_token;
+                that.requestSearch(url, token, (json)=>{
+                    const responses = that.extraData(json, 'image');
+                    callback(responses);
+                });
+            });
+        }
     }
     return that;
 }

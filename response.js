@@ -13,6 +13,10 @@ function Response() {
         that.datas.push(data);
     }
 
+    that.stringify = function(data) {
+        return JSON.stringify(that);
+    }
+
     return that;
 }
 

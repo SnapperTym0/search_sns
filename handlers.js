@@ -15,8 +15,10 @@ function start(response) {
 function search(response) {
     console.log('search');
     const twitter = Twitter(request, exec);
-    twitter.getImages('', (data)=>{
-        response.write(data.toString());
+    twitter.getToken((err, res, body)=>{
+        response.setHeader('Access-Control-Allow-Origin', '*');
+        response.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
+        response.write(body.access_token);
         response.end();
     });
 }
